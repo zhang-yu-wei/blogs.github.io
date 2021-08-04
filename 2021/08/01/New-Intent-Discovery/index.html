@@ -33,7 +33,7 @@
 <meta property="og:image" content="http://yoursite.com/images/opine.png">
 <meta property="og:image" content="http://yoursite.com/images/deep-clustering.png">
 <meta property="article:published_time" content="2021-08-01T15:03:49.000Z">
-<meta property="article:modified_time" content="2021-08-03T01:42:02.085Z">
+<meta property="article:modified_time" content="2021-08-04T16:31:11.286Z">
 <meta property="article:author" content="Yuwei Zhang (张峪玮)">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://yoursite.com/images/conversational_ai.jpeg">
@@ -191,7 +191,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-08-03 09:42:02" itemprop="dateModified" datetime="2021-08-03T09:42:02+08:00">2021-08-03</time>
+                <time title="Modified: 2021-08-05 00:31:11" itemprop="dateModified" datetime="2021-08-05T00:31:11+08:00">2021-08-05</time>
               </span>
 
           
@@ -239,8 +239,9 @@
 <p>In addition, 2 methods were proposed to solve semi-supervised setting as in Fig.1. <a target="_blank" rel="noopener" href="https://arxiv.org/abs/1911.08891">Lin et al. (2019)</a> proposed to train a model with sentence similarity task, where they used a training strategy similar to self-training to utilize labeled data. They also proposed to refine the pretrained clustering network with a clustering objective. <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2012.08987">Zhang et al. (2020)</a> explored a popular unsupervised clustering algorithm-<em>Deep Clustering</em>. As shown in Fig.4, it uses k-means to find cluster centroids and assignments for each instance, then it uses produced pseudo-labels to train the network. The authors found this kind of alternative training needs to initialize a random linear layer at each iteration, so they proposed to align the clusters between current iteration and last iteration. They also uses the labeled part of the data for pretraining the network.</p>
 <figure>
 <img src="/../images/deep-clustering.png" alt="deep-clustering" style="width:100%">
-<figcaption align = "center"><b>Fig.4 Deep Clustering alternatively performs k-means and gradient descent to find an optimal solution for clustering.(<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1807.05520">Caron et al. (2020)</a>).</b></figcaption>
+<figcaption align = "center"><b>Fig.4 Deep Clustering alternatively performs k-means and gradient descent to find an optimal solution for clustering.(<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1807.05520">Caron et al. (2018)</a>).</b></figcaption>
 </figure>
+
 
 <h3 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h3><p>It is usually labor-intensive to find intents from a large amount of customer-agent conversations. Thus it is efficient to build a clustering algorithm that discriminate user utterance based on the underlying intentions. In this post, we have discussed previous research results from early stage to the recent findings. Overall, most research lie in one of 3 settings: supervised, unsupervised and semi-supervised. They mainly explored to improve the performance from perspectives of both representation learning and clustering algorithms. Furthermore, this research area could also benefit from existing research in computer vision and natural language.</p>
 
@@ -274,6 +275,13 @@
 
           </div>
           
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -438,6 +446,27 @@
   
 
   
+
+<script>
+  var disqus_config = function() {
+    this.page.url = "http://yoursite.com/2021/08/01/New-Intent-Discovery/";
+    this.page.identifier = "2021/08/01/New-Intent-Discovery/";
+    this.page.title = "New-Intent-Discovery";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://zhang-yu-wei.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
 
 </body>
 </html>
