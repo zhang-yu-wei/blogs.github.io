@@ -20,12 +20,12 @@
     var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="I am now a Research Assistant at CS of PolyU. I received Bachelor of Science in Physics from Nankai University in 2020. I currently work on NLP&#x2F;CV&#x2F;ML.">
+  <meta name="description" content="I am a M.S. student in UCSD. I received Bachelor of Science in Physics from Nankai University in 2020. I currently work on NLP&#x2F;CV&#x2F;ML.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Blogs from Yuwei Zhang (张峪玮)">
 <meta property="og:url" content="http://yoursite.com/index.html">
 <meta property="og:site_name" content="Blogs from Yuwei Zhang (张峪玮)">
-<meta property="og:description" content="I am now a Research Assistant at CS of PolyU. I received Bachelor of Science in Physics from Nankai University in 2020. I currently work on NLP&#x2F;CV&#x2F;ML.">
+<meta property="og:description" content="I am a M.S. student in UCSD. I received Bachelor of Science in Physics from Nankai University in 2020. I currently work on NLP&#x2F;CV&#x2F;ML.">
 <meta property="og:locale" content="en_US">
 <meta property="article:author" content="Yuwei Zhang (张峪玮)">
 <meta name="twitter:card" content="summary">
@@ -157,7 +157,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/maomi.jpg">
       <meta itemprop="name" content="Yuwei Zhang (张峪玮)">
-      <meta itemprop="description" content="I am now a Research Assistant at CS of PolyU. I received Bachelor of Science in Physics from Nankai University in 2020. I currently work on NLP/CV/ML.">
+      <meta itemprop="description" content="I am a M.S. student in UCSD. I received Bachelor of Science in Physics from Nankai University in 2020. I currently work on NLP/CV/ML.">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -183,7 +183,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-12-24 14:39:54" itemprop="dateModified" datetime="2021-12-24T14:39:54-08:00">2021-12-24</time>
+                <time title="Modified: 2021-12-24 22:42:12" itemprop="dateModified" datetime="2021-12-24T22:42:12-08:00">2021-12-24</time>
               </span>
 
           
@@ -199,45 +199,15 @@
       
           <p><img src="/../images/conversational_ai.jpeg" alt="conversational_ai"></p>
 <p><sub><sup>Picture from <a target="_blank" rel="noopener" href="https://www.analyticsinsight.net/comprehensive-guide-natural-language-processing/">https://www.analyticsinsight.net/comprehensive-guide-natural-language-processing/</a></sup></sub></p>
-<h1 id="New-Intent-Discovery-for-Tasked-oriented-Dialogue"><a href="#New-Intent-Discovery-for-Tasked-oriented-Dialogue" class="headerlink" title="New Intent Discovery for Tasked-oriented Dialogue"></a>New Intent Discovery for Tasked-oriented Dialogue</h1><h3 id="Backgrounds"><a href="#Backgrounds" class="headerlink" title="Backgrounds"></a>Backgrounds</h3><ol>
-<li><p><a target="_blank" rel="noopener" href="https://blog.einstein.ai/simpletod/">Task-oriented Dialogue (TOD)</a> Often works in a pipeline with each module for a different NLU task.</p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="https://paperswithcode.com/task/intent-detection">Intent Detection (ID)</a> Important component in TOD system. Can be viewed as a fine-grained text classification task.</p>
-</li>
-</ol>
-<h3 id="Problem-Formulation"><a href="#Problem-Formulation" class="headerlink" title="Problem Formulation"></a>Problem Formulation</h3><p>In the beginning of developing an ID model for a specific service (such as banking, healthcare and restaurant), the main challenge is to find out the most probable intents from your customers. One possible way is to cluster an existing corpus of conversations (usually collected from human-human dialogues for this service) according to the underlying intents, and then engineers could easily discover the intent from each cluster. Finding a good unsupervised clustering algorithm then becomes vital for this problem.</p>
-<p>It is also worth noting that the need for new intent discovery might still exist after the development of ID model since the service is evolving all the time and new customer demands will be produced. In this case, the corpus to be clustered might contain both known and unknown intents, as shown in Fig.1. Then the algorithm is expected to distinguish the known intents while discovering new intents and the labeled data can be utilized to benefit clustering.</p>
-<figure>
-<img src="/../images/semi-supervised-setting.png" alt="semi-supervised-setting" style="width:100%">
-<figcaption align = "center"><b>Fig.1 As proposed by <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2012.08987">Zhang et al. (2020)</a>, both known and unknown intents might exist in the unlabeled training corpus. At the same time, there are some labels that could be utilized to benefit new intent discovery.</b></figcaption>
-</figure>
-
-<p><strong><u>Difference from zero-shot learning</u></strong> No class information is provided during training.</p>
-<p><strong><u>Difference from out-of-scope detection/unknown intent detection</u></strong> Rather than simply separating unknown intents, the algorithm is needed to discriminate the semantic difference among new utterances.</p>
-<h3 id="Previous-Methods"><a href="#Previous-Methods" class="headerlink" title="Previous Methods"></a>Previous Methods</h3><p>Early research for clustering the queries based on the user intents can be traced back to 2010 where researchers used the clustering results to develop internet search engines. Most of these research rely on user experience other than merely semantic features, such as user clicking and co-occurring searches. To name a few, <a target="_blank" rel="noopener" href="https://www.researchgate.net/publication/220146607_Classifying_the_user_intent_of_web_queries_using_k_-means_clustering">Kathuria et al. (2010)</a> simply used k-means to cluster web queries with user traits. <a target="_blank" rel="noopener" href="https://homes.cs.washington.edu/~alon/www2010.pdf">Sadikov et al. (2010)</a> clustered query refinements with several search results (document-click and query co-occurrences in the same search session).  <a target="_blank" rel="noopener" href="https://www.microsoft.com/en-us/research/publication/a-weakly-supervised-approach-for-discovering-new-user-intents-from-search-query-logs/">Hakkani-Tur et al. (2013)</a> uses the clicked URLs as a supervision and discover new intents based on knowledge graphs. However, modern conversational ai does not have these context features which make the discussion for these research here helpless.</p>
-<p>There exists several attempts to discover new intents without a direct usage of deep neural networks. <a target="_blank" rel="noopener" href="https://dl.acm.org/doi/10.1145/2124295.2124342">Cheung et al. (2012)</a> extracted feature vectors based on large knowledge base and then employed agglomerative clustering. <a target="_blank" rel="noopener" href="https://www.isca-speech.org/archive/interspeech_2015/papers/i15_1854.pdf">Hakkani-Tur et al. (2015)</a> proposed a semantic parsing based clustering method. <a target="_blank" rel="noopener" href="https://isca-speech.org/archive/Interspeech_2018/pdfs/2436.pdf">Padmasundari et al. (2018)</a> explored various texts representations such as word2vec, gloVe and ConceptNet, and leaded to SOTA results on public dataset at that time. A supervised clustering method was introduced in <a target="_blank" rel="noopener" href="https://aclanthology.org/D18-1254/">Haponchyk et al. (2018)</a> by inferring spanning trees from a fully connected undirect graph. Later this method was modified to an end-to-end training manner with BERT as feature extractor (<a target="_blank" rel="noopener" href="https://aclanthology.org/2021.naacl-main.263/">Haponchyk et al. (2021)</a>).</p>
-<p>Recent methods introduced better representation learning and improved clustering with various techniques. <a target="_blank" rel="noopener" href="https://aclanthology.org/D18-1072/">Shi et al. (2018)</a> leveraged auto-encoder to assemble features and then adapts a dynamic hierarchical clustering for labeling intents. <a target="_blank" rel="noopener" href="https://aclanthology.org/2020.coling-main.366/">Chatterjee et al. (2020)</a> proposed a density-based method (based on DBSCAN) to cluster corpus with features extracted from pretrained encoders. <a target="_blank" rel="noopener" href="https://aclanthology.org/D19-1413/">Perkins et al. (2019)</a> observed that the context of a utterance in a dialogue between customer and agent can be utilized to infer the intent (An example can be found in Fig.2). They proposed alternating-view k-means (AV-KMEANS) to incorporate 2 views corresponding to the query and the rest of the conversation, and the experimental result with 2 kinds of encoders showed superiority over those methods that only use single view.</p>
-<figure>
-<img src="/../images/dialogue-turn.png" alt="dialogue-turn" style="width:100%">
-<figcaption align = "center"><b>Fig.2 The user query utterances of the two dialogs are lexically and syntactically dissimilar, while the rests of the dialogs are similar (<a target="_blank" rel="noopener" href="https://aclanthology.org/D19-1413/">Perkins et al. (2019)</a>).</b></figcaption>
-</figure>
-
-<p>Interestingly, a generative model was proposed to directly extract open intents from the wild without any labeled examples and class information (<a target="_blank" rel="noopener" href="https://dl.acm.org/doi/fullHtml/10.1145/3366423.3380268">Vedula et al. (2020)</a>). The proposed framework OPINE is illustrated in Fig.3. OPINE interprets an intent as an action-object pair (such as <em>reserve restaurant</em>, <em>book hotel</em>, <em>set alarm</em>). It uses sequence tagging technique to annotate each word as either ACTION, OBJECT or NONE. Then it selects an appropriate combination of ACTION and OBJECT as an intent. This could also produce multiple intents for each query. A dataset <em>StackExchange</em> is collected from real-world scenario to better evaluate the model. <a target="_blank" rel="noopener" href="https://www.ijcai.org/proceedings/2020/0532.pdf">Min et al. (2020)</a> also proposed a similar setting called <em>dialogue state induction</em> as opposed to <em>dialogue state module</em>, which predicts dialogue states without annotated data.</p>
-<figure>
-<img src="/../images/opine.png" alt="opine" style="width:100%">
-<figcaption align = "center"><b>Fig.3 OPINE first constructs input representation from both character-level and word-level. Then it employs adversatial training to make the features robust to perturbations. A Bi-LSTM then extracts sentence representations which is combined with a multi-head attention to learn to focus. On top of this, it uses CRF to predict one of 3 tags: ACTION, OBJECT and NONE. Lastly, a MLP finds the appropriate action-object pair as an intent.(<a target="_blank" rel="noopener" href="https://dl.acm.org/doi/fullHtml/10.1145/3366423.3380268">Vedula et al. (2020a)</a>).</b></figcaption>
-</figure>
-
-
-<p>In addition, a few methods were proposed to solve semi-supervised setting as in Fig.1. <a target="_blank" rel="noopener" href="https://arxiv.org/abs/1911.08891">Lin et al. (2019)</a> proposed to train a model with sentence similarity task, where they used a training strategy similar to self-training to utilize labeled data. They also proposed to refine the pretrained clustering network with a clustering objective. <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2012.08987">Zhang et al. (2020)</a> explored a popular unsupervised clustering algorithm-<em>Deep Clustering</em>. As shown in Fig.4, it uses k-means to find cluster centroids and assignments for each instance, then it uses produced pseudo-labels to train the network. The authors found this kind of alternative training needs to initialize a random linear layer at each iteration, so they proposed to align the clusters between current iteration and last iteration. They also uses the labeled part of the data for pretraining the network. <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2006.01208">Vedula et al (2020b)</a> proposed to first discriminate novel intents from known intents, and then perform hierarchical clustering with transferred knowledge. It further linked discovered novel intents into domains.</p>
-<figure>
-<img src="/../images/deep-clustering.png" alt="deep-clustering" style="width:100%">
-<figcaption align = "center"><b>Fig.4 Deep Clustering alternatively performs k-means and gradient descent to find an optimal solution for clustering.(<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1807.05520">Caron et al. (2018)</a>).</b></figcaption>
-</figure>
-
-
-<h3 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h3><p>In this post, we have discussed previous research results from early stage to the recent findings. Overall, most research lie in one of 3 settings: supervised, unsupervised and semi-supervised. They mainly explored to improve the performance from perspectives of both representation learning and clustering algorithms. Furthermore, this research area could also benefit from existing research in computer vision and natural language.</p>
-
+<h1 id="New-Intent-Discovery-for-Tasked-oriented-Dialogue"><a href="#New-Intent-Discovery-for-Tasked-oriented-Dialogue" class="headerlink" title="New Intent Discovery for Tasked-oriented Dialogue"></a>New Intent Discovery for Tasked-oriented Dialogue</h1>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/08/01/New-Intent-Discovery/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -261,7 +231,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/maomi.jpg">
       <meta itemprop="name" content="Yuwei Zhang (张峪玮)">
-      <meta itemprop="description" content="I am now a Research Assistant at CS of PolyU. I received Bachelor of Science in Physics from Nankai University in 2020. I currently work on NLP/CV/ML.">
+      <meta itemprop="description" content="I am a M.S. student in UCSD. I received Bachelor of Science in Physics from Nankai University in 2020. I currently work on NLP/CV/ML.">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -379,7 +349,7 @@
     <img class="site-author-image" itemprop="image" alt="Yuwei Zhang (张峪玮)"
       src="/images/maomi.jpg">
   <p class="site-author-name" itemprop="name">Yuwei Zhang (张峪玮)</p>
-  <div class="site-description" itemprop="description">I am now a Research Assistant at CS of PolyU. I received Bachelor of Science in Physics from Nankai University in 2020. I currently work on NLP/CV/ML.</div>
+  <div class="site-description" itemprop="description">I am a M.S. student in UCSD. I received Bachelor of Science in Physics from Nankai University in 2020. I currently work on NLP/CV/ML.</div>
 </div>
 <div class="site-state-wrap motion-element">
   <nav class="site-state">
