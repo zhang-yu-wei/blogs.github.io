@@ -33,7 +33,7 @@
 <meta property="og:image" content="http://yoursite.com/images/lc_quantitative.png">
 <meta property="og:image" content="http://yoursite.com/images/lc_video.gif">
 <meta property="article:published_time" content="2020-09-20T00:00:51.000Z">
-<meta property="article:modified_time" content="2021-12-28T10:03:09.390Z">
+<meta property="article:modified_time" content="2021-12-28T10:09:01.065Z">
 <meta property="article:author" content="Yuwei Zhang (张峪玮)">
 <meta property="article:tag" content="Application">
 <meta name="twitter:card" content="summary">
@@ -188,7 +188,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-12-28 02:03:09" itemprop="dateModified" datetime="2021-12-28T02:03:09-08:00">2021-12-28</time>
+                <time title="Modified: 2021-12-28 02:09:01" itemprop="dateModified" datetime="2021-12-28T02:09:01-08:00">2021-12-28</time>
               </span>
 
           
@@ -205,6 +205,7 @@
         <p><img src="/../images/liquid_crystal.jpg" /></p>
 <h1 id="automated-segmentation-for-liquid-crystal-microscopy">Automated Segmentation for Liquid Crystal Microscopy</h1>
 <p>This is an interesting project for my undergraduate thesis. It shows a possible application for deep learning models on physics. I will briefly review what I have done in this project.</p>
+<a id="more"></a>
 <p>Liquid Crystals (LC) provide a versatile platform for sensing of air contaminants (chemical sensing) and sensing of heat transfer and shear stress (mechanical sensing) (<a target="_blank" rel="noopener" href="https://pubs.acs.org/doi/10.1021/acs.jpcc.0c01942">Smith et al. (2020)</a>). The detection of a LC sensor is relied on a microscopy image such as the one shown above. We can simply find positive areas in each small regular grids and calculate the ratio of positive response. Although generally lighter areas are positive reponses, a simple thresholding method is not accurate enough since some dark areas should also be included which is related to the shape information. I invited several experts to acquire hunderds of annotations and set up a dataset for training.</p>
 <p>The first diffculty is to detect the regular grids out of the raw microscopy. For this, I used several heuristics such as the size and shape of a regular grid combined with several filters for image processing. And then I could get the bounding boxes shown in Fig.1. The total training set is enlarged to ~2400 after this.</p>
 <figure>
@@ -213,7 +214,7 @@
 <b>Fig.1 Grid Detection</b>
 </figcaption>
 </figure>
-<p>After that, I trained a U-Net with these grids and the corresponding annotations. The network is supposed to segment the positive responses out of the grids. As shown by Fig.2, I can have much better results compared to simple thresholding. The positive ratio is defined as the relative area of positive regions to the entire image.</p>
+<p>After that, I trained a U-Net with these grids supervised by the corresponding annotations. The network is supposed to segment the positive responses out of the grids. As shown by Fig.2, I can have much better results from U-Net compared to simple thresholding. The positive ratio is defined as the relative area of positive regions to the entire image.</p>
 <figure>
 <img src="/../images/lc_qualitative.png" alt="lc_qualitative" style="width:100%">
 <figcaption align="center">
@@ -227,7 +228,7 @@
 <b>Fig.3 Calculate Scores</b>
 </figcaption>
 </figure>
-<p>Furthermore, I made a real-time detection software. It takes sequence of images from camera and then perform the operation as shown above. An example is shown below in Fig.4.</p>
+<p>Furthermore, I made a real-time detection software. It takes sequence of images from camera and then perform the operation as shown above. It ouputs the detection as well as segmentation results in the right. And it also shows a trend of score on lower right. An example is shown below in Fig.4.</p>
 <figure>
 <img src="/../images/lc_video.gif" alt="lc_video" style="width:100%">
 <figcaption align="center">
