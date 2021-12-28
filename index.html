@@ -254,7 +254,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-12-27 17:32:05" itemprop="dateModified" datetime="2021-12-27T17:32:05-08:00">2021-12-27</time>
+                <time title="Modified: 2021-12-27 22:40:00" itemprop="dateModified" datetime="2021-12-27T22:40:00-08:00">2021-12-27</time>
               </span>
 
           
@@ -328,7 +328,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-08-01 08:07:29" itemprop="dateModified" datetime="2021-08-01T08:07:29-07:00">2021-08-01</time>
+                <time title="Modified: 2021-12-28 02:03:09" itemprop="dateModified" datetime="2021-12-28T02:03:09-08:00">2021-12-28</time>
               </span>
 
           
@@ -342,11 +342,38 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <figure>
-<img src="/../images/liquid_crystal.jpg" alt="alt" /><figcaption aria-hidden="true">alt</figcaption>
+          <p><img src="/../images/liquid_crystal.jpg" /></p>
+<h1 id="automated-segmentation-for-liquid-crystal-microscopy">Automated Segmentation for Liquid Crystal Microscopy</h1>
+<p>This is an interesting project for my undergraduate thesis. It shows a possible application for deep learning models on physics. I will briefly review what I have done in this project.</p>
+<p>Liquid Crystals (LC) provide a versatile platform for sensing of air contaminants (chemical sensing) and sensing of heat transfer and shear stress (mechanical sensing) (<a target="_blank" rel="noopener" href="https://pubs.acs.org/doi/10.1021/acs.jpcc.0c01942">Smith et al. (2020)</a>). The detection of a LC sensor is relied on a microscopy image such as the one shown above. We can simply find positive areas in each small regular grids and calculate the ratio of positive response. Although generally lighter areas are positive reponses, a simple thresholding method is not accurate enough since some dark areas should also be included which is related to the shape information. I invited several experts to acquire hunderds of annotations and set up a dataset for training.</p>
+<p>The first diffculty is to detect the regular grids out of the raw microscopy. For this, I used several heuristics such as the size and shape of a regular grid combined with several filters for image processing. And then I could get the bounding boxes shown in Fig.1. The total training set is enlarged to ~2400 after this.</p>
+<figure>
+<img src="/../images/filtered.png" alt="filtered" style="width:100%">
+<figcaption align="center">
+<b>Fig.1 Grid Detection</b>
+</figcaption>
 </figure>
-<h1 id="automated-correction-of-liquid-crystal-microscopy-response-with-deep-learning">Automated Correction of Liquid Crystal Microscopy Response with Deep Learning</h1>
-<p>How to use our tools to calculate liquid crystal ratios</p>
+<p>After that, I trained a U-Net with these grids and the corresponding annotations. The network is supposed to segment the positive responses out of the grids. As shown by Fig.2, I can have much better results compared to simple thresholding. The positive ratio is defined as the relative area of positive regions to the entire image.</p>
+<figure>
+<img src="/../images/lc_qualitative.png" alt="lc_qualitative" style="width:100%">
+<figcaption align="center">
+<b>Fig.2 Segmentation on Grids</b>
+</figcaption>
+</figure>
+<p>Finally, I calculate the detection score by calculating the average positive ratio of 32 grids in one microscopy. In Fig.3, I compare the ground truth to the predicted score, the results are close to the reference line.</p>
+<figure>
+<img src="/../images/lc_quantitative.png" alt="lc_quantitative" style="width:100%">
+<figcaption align="center">
+<b>Fig.3 Calculate Scores</b>
+</figcaption>
+</figure>
+<p>Furthermore, I made a real-time detection software. It takes sequence of images from camera and then perform the operation as shown above. An example is shown below in Fig.4.</p>
+<figure>
+<img src="/../images/lc_video.gif" alt="lc_video" style="width:100%">
+<figcaption align="center">
+<b>Fig.3 Real-time Detection</b>
+</figcaption>
+</figure>
 
       
     </div>
