@@ -42,7 +42,7 @@
 <meta property="og:image" content="http://yoursite.com/images/cpt.png">
 <meta property="og:image" content="http://yoursite.com/images/generated.png">
 <meta property="article:published_time" content="2021-12-25T06:46:50.000Z">
-<meta property="article:modified_time" content="2021-12-28T01:58:28.689Z">
+<meta property="article:modified_time" content="2021-12-28T06:16:39.121Z">
 <meta property="article:author" content="Yuwei Zhang (张峪玮)">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://yoursite.com/images/multimodal.jpeg">
@@ -196,7 +196,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-12-27 17:58:28" itemprop="dateModified" datetime="2021-12-27T17:58:28-08:00">2021-12-27</time>
+                <time title="Modified: 2021-12-27 22:16:39" itemprop="dateModified" datetime="2021-12-27T22:16:39-08:00">2021-12-27</time>
               </span>
 
           
@@ -364,9 +364,9 @@
 <p>For pretraining datasets choice, four datasets are used the most: Conceptual Captions (CC), MS COCO, Visual Genome (VG) and SBU. Combining them into a larger pretraining dataset will generally lead to better results.</p>
 <p>For pretraining objectives, there are usually Image-Text Matching (ITM), Masked Language Modeling (MLM) and Masked Region Modeling (MRM) similar to that in BERT. There is also Word Region Alignment (WRA) as proposed in UNITER. Furthermore, adversarial training is used in VILLA (<a target="_blank" rel="noopener" href="https://proceedings.neurips.cc/paper/2020/hash/49562478de4c54fafd4ec46fdb297de5-Abstract.html">Gan et al. (2020)</a>) which boosts the performance.</p>
 <p>For downstream tasks, VQA, VCR, Image Retrieval (IR), Text Retrieval (TR), NLVR, Referring Expressiong Comprehension (REC) and Captioning are the most popular ones. Vision-Language Tranformers achieve SOTA results in each of them compared to previous task-specific architectures, which I think mostly thanks to the pretraining-finetuning paradigm and the transformer encoder.</p>
-<h3 id="how-to-improve-it">How to Improve It?</h3>
+<h3 id="problems-and-how-to-improve-it">Problems and How to Improve It?</h3>
 <p>As you might have already noticed, there are several obvious drawbacks such as the use of an object detector. We summarize some more disadvantages in this section and we will also show some examples of how to improve it.</p>
-<p>We will first list several problems about pioneering works.</p>
+<p>We will first list several <strong>problems</strong> about pioneering works.</p>
 <ol type="1">
 <li><p><strong>Reliance on Object Detector</strong></p>
 <p>On one hand, it could be difficult to have an off-the-shelf object detector sometimes. Lets say we want to build a VL model for medical X-ray reports and there is almost no way we can get an object detector for organs or cancers for free. On the other hand, merely taking object regions as inputs remove all the necessary context information. For instance, as shown in Fig.3, current VL transformers take object bounding boxes as inputs which is the boat, the man and the woman, and there is no way for a model to infer whether the couples are sitting in the boat or on the shore. Another obvious defect is that object detectors are fixed-vocabulary, meaning that they can not handle objects unseen during pretraining, however, we could alwasy encounter long tail object classes in the open ended vision language interaction. And finally, we always have to perform one more inference with an object detection phase at first which makes it inefficient for real-world applications.</p>
@@ -387,7 +387,7 @@
 <li><p><strong>Can We Compress the Models?</strong></p>
 <p>Can we compress the large models into smaller models like we did for DistillBERT?</p></li>
 </ol>
-<p>We will now present several works dedicated to solve these problems.</p>
+<p>We will now present several works dedicated to <strong>solve these problems</strong>.</p>
 <ol type="1">
 <li><p><strong>Remove Object Detector</strong></p>
 <p>An immediate solution for this is to directly input the entire image, however, this is not viable because of the limitation of length for Transformer input. A possible replacement for object RoI features is the final features from CNN models of the image. This is explored in a recent work called Pixel-BERT (<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2004.00849">Huang et al. (2020)</a>) which compresses the input image with ResNet and then flatten CNN features as input tokens for Transformers. In this way, the visual feature extractor is also end-to-end trainable. This work is further extended to SOHO (<a target="_blank" rel="noopener" href="https://openaccess.thecvf.com/content/CVPR2021/html/Huang_Seeing_Out_of_the_Box_End-to-End_Pre-Training_for_Vision-Language_Representation_CVPR_2021_paper.html">Huang et al. (2021)</a>) which uses visual dictionary embedding to sparse the input information and improve the performance.</p>
@@ -666,7 +666,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#a-summary-for-vision-language-vl-transformers"><span class="nav-number">1.</span> <span class="nav-text">A Summary for Vision-Language (VL) Transformers</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#what-is-it"><span class="nav-number">1.0.1.</span> <span class="nav-text">What is it?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#why-do-we-need-it"><span class="nav-number">1.0.2.</span> <span class="nav-text">Why Do We Need It?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#some-pioneering-works"><span class="nav-number">1.0.3.</span> <span class="nav-text">Some Pioneering Works</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#how-to-improve-it"><span class="nav-number">1.0.4.</span> <span class="nav-text">How to Improve It?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#conclusion-and-discussion"><span class="nav-number">1.0.5.</span> <span class="nav-text">Conclusion and Discussion</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#a-summary-for-vision-language-vl-transformers"><span class="nav-number">1.</span> <span class="nav-text">A Summary for Vision-Language (VL) Transformers</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#what-is-it"><span class="nav-number">1.0.1.</span> <span class="nav-text">What is it?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#why-do-we-need-it"><span class="nav-number">1.0.2.</span> <span class="nav-text">Why Do We Need It?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#some-pioneering-works"><span class="nav-number">1.0.3.</span> <span class="nav-text">Some Pioneering Works</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#problems-and-how-to-improve-it"><span class="nav-number">1.0.4.</span> <span class="nav-text">Problems and How to Improve It?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#conclusion-and-discussion"><span class="nav-number">1.0.5.</span> <span class="nav-text">Conclusion and Discussion</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
